@@ -6,11 +6,11 @@ using Entities.Concrete;
 
 Console.WriteLine("TOGG CRM\n*--------------*");
 
-GetCarDetailsTest();
+//GetCarDetailsTest();
 
 
 //AddCarTest();
-//UpdateCarTest();
+UpdateCarTest();
 //DeleteCarTest();
 
 /////////////////////////////
@@ -52,29 +52,53 @@ static void GetCarDetailsTest()
 static void AddCarTest()
 {
     CarManager carManager = new CarManager(new EfCarDal());
-    carManager.Add(new Car { BrandId = 1, ColorId = 1, ModelYear = 2025, DailyPrice = 1200000, Description = "TOGG T40X" });
-    var result = carManager.GetAll();
-    foreach (var car in result.Data)
+    var result = carManager.Add(new Car { BrandId = 1, ColorId = 1, ModelYear = 2025, DailyPrice = 1200000, Description = "TOGG A50T" });
+
+    if (result.Success == true)
     {
-        Console.WriteLine("{0} - {1} - {2} ", car.CarId, car.Description, car.DailyPrice);
+        foreach (var car in carManager.GetCarDetails().Data)
+        {
+            Console.WriteLine("{0} - {1} - {2} ", car.CarId, car.Description, car.DailyPrice);
+        }
     }
+    else
+    {
+        Console.WriteLine(result.Message);
+    }
+
 
 }
 static void UpdateCarTest()
 {
     CarManager carManager = new CarManager(new EfCarDal());
-    carManager.Update(new Car { CarId = 4, BrandId = 3, ColorId = 2, ModelYear = 2025, DailyPrice = 1400000, Description = "TOGG T40X" });
-    GetCarDetailsTest();
+    var result = carManager.Update(new Car { CarId = 2005, BrandId = 3, ColorId = 2, ModelYear = 2025, DailyPrice = 900000, Description = "TOGG V10I" });
+    if (result.Success == true)
+    {
+        GetCarDetailsTest();
+    }
+    else
+    {
+        Console.WriteLine(result.Message);
+    }
+
 }
 static void DeleteCarTest()
 {
     CarManager carManager = new CarManager(new EfCarDal());
-    carManager.Delete(new Car { CarId = 2004 });
-    var result = carManager.GetAll();
-    foreach (var car in result.Data)
+
+    var result = carManager.Delete(new Car { CarId = 2004 });
+    if (result.Success == true)
     {
-        Console.WriteLine("{0} - {1} - {2} ", car.CarId, car.Description, car.DailyPrice);
+        foreach (var car in carManager.GetAll().Data)
+        {
+            Console.WriteLine("{0} - {1} - {2} ", car.CarId, car.Description, car.DailyPrice);
+        }
     }
+    else
+    {
+        Console.WriteLine(result.Message);
+    }
+
 }
 
 static void AddBrandTest()
