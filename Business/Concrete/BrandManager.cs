@@ -28,15 +28,17 @@ namespace Business.Concrete
 
         public IResult Delete(Brand brand)
         {
+            _brandDal.Delete(brand);
             return new SuccessResult(Messages.DeletedBrand);
         }
         public IResult Update(Brand brand)
         {
+            _brandDal.Update(brand);
             return new SuccessResult(Messages.UpdatedBrand);
         }
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.ListedBrand);
         }
 
 

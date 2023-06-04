@@ -48,9 +48,9 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            //İş kodları
+            //business codes
 
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ListedCar);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -68,12 +68,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetCarsByBrandId(int Id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == Id));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == Id), Messages.ListedCarByBrandId);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int Id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == Id));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == Id), Messages.ListedCarByColorId);
         }
 
 

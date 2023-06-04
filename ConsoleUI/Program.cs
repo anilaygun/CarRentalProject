@@ -1,16 +1,27 @@
 ﻿using Business.Concrete;
+using Business.Constants;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 
-Console.WriteLine("TOGG CRM\n*--------------*");
+Console.WriteLine("<TOGG CRM>\n*--------------*");
 
 //GetCarDetailsTest();
 
 
+//AddUserTest();
+
+//AddCustomerTest();
+
+//AddRentalTest();
+
+//GetCustomerDetailTest();
+
+
+
 //AddCarTest();
-UpdateCarTest();
+//UpdateCarTest();
 //DeleteCarTest();
 
 /////////////////////////////
@@ -108,7 +119,6 @@ static void AddBrandTest()
 
 
 }
-
 static void UpdateBrandTest()
 {
     BrandManager brandManager = new BrandManager(new EfBrandDal());
@@ -119,7 +129,6 @@ static void UpdateBrandTest()
         Console.WriteLine("{0} - {1}", brand.BrandId, brand.BrandName);
     }
 }
-
 static void DeleteBrandTest()
 {
     BrandManager brandManager = new BrandManager(new EfBrandDal());
@@ -141,7 +150,6 @@ static void AddColorTest()
         Console.WriteLine("{0} - {1}", color.ColorId, color.ColorName);
     }
 }
-
 static void DeleteColorTest()
 {
     ColorManager colorManager = new ColorManager(new EfColorDal());
@@ -152,7 +160,6 @@ static void DeleteColorTest()
         Console.WriteLine("{0} - {1}", color.ColorId, color.ColorName);
     }
 }
-
 static void UpdateColorTest()
 {
     ColorManager colorManager = new ColorManager(new EfColorDal());
@@ -161,5 +168,75 @@ static void UpdateColorTest()
     foreach (var color in result.Data)
     {
         Console.WriteLine("{0} - {1}", color.ColorId, color.ColorName);
+    }
+}
+
+
+
+static void AddUserTest()
+{
+    UserManager userManager = new UserManager(new EfUserDal());
+    var result = userManager.Add(new User { UserFirstName = "Hakan", UserLastName = "Yalçın", UserEMail = "deneme@corenil.com", UserPassword = "deneme123" });
+    if (result.Success == true)
+    {
+        foreach (var user in userManager.GetAll().Data)
+        {
+            Console.WriteLine("{0} / {1} / {2} / {3}", user.UserId, user.UserFirstName, user.UserLastName, user.UserEMail, user.UserPassword);
+            Console.WriteLine(result.Message);
+
+        }
+    }
+    else
+    {
+        Console.WriteLine(result.Message);
+    }
+}
+
+static void AddCustomerTest()
+{
+    CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+    customerManager.Add(new Customer { BrandId = 1, CompanyName = "SOKERESA AŞ", UserId = 1 });
+    var result = customerManager.GetAll();
+    if (result.Success)
+    {
+        foreach (var customer in result.Data)
+        {
+            Console.WriteLine("{0} / {1} ", customer.CustomerId, customer.CompanyName);
+            Console.WriteLine("\n", result.Message);
+        }
+    }
+    else
+    {
+        Console.WriteLine(result.Message);
+    }
+}
+
+static void AddRentalTest()
+{
+    RentalManager rentalManager = new RentalManager(new EfRentalDal());
+    rentalManager.Add(new Rental { CarId = 3, CustomerId = 1, RentDate = DateTime.Now });
+    var result = rentalManager.GetAll();
+    if (result.Success)
+    {
+        foreach (var rental in result.Data)
+        {
+            Console.WriteLine("{0} / {1} / {2} ", rental.RentalId, rental.RentDate, rental.ReturnDate);
+            Console.WriteLine(result.Message);
+        }
+    }
+    else
+    {
+        Console.WriteLine(result.Message);
+    }
+}
+
+static void GetCustomerDetailTest()
+{
+    CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+    var result = customerManager.GetCustomerDetails();
+    foreach (var customer in result.Data)
+    {
+        Console.WriteLine("\"{0} : {1} / {2} / {3} / {4} / {5} => {6} ", customer.CustomerId, customer.CompanyName, customer.UserFirstName, customer.UserLastName, customer.RentDate, customer.ReturnDate, customer.BrandName);
+        Console.WriteLine("\n", result.Message);
     }
 }
