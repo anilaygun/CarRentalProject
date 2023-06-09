@@ -34,8 +34,12 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            BusinessRules.Run(CheckIfProductExists(car.Description), CheckIfCarCountOfBrandCorrect(car.BrandId), CheckIfSameColor(car.ColorId));
+            IResult result = BusinessRules.Run(CheckIfProductExists(car.Description), CheckIfCarCountOfBrandCorrect(car.BrandId), CheckIfSameColor(car.ColorId));
 
+            if (result != null)
+            {
+                return result;
+            }
             _carDal.Add(car);
             return new SuccessResult(Messages.AddedCar);
 
