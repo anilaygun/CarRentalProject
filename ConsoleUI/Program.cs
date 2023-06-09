@@ -1,4 +1,5 @@
-﻿using Business.Concrete;
+﻿using Business.Abstract;
+using Business.Concrete;
 using Business.Constants;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -43,7 +44,7 @@ Console.WriteLine("\n*--------------*\n");
 
 static void GetCarDetailsTest()
 {
-    CarManager carManager = new CarManager(new EfCarDal());
+    CarManager carManager = new CarManager(new EfCarDal(), new ColorManager(new EfColorDal()));
     var result = carManager.GetCarDetails();
     if (result.Success == true)
     {
@@ -62,7 +63,7 @@ static void GetCarDetailsTest()
 
 static void AddCarTest()
 {
-    CarManager carManager = new CarManager(new EfCarDal());
+    CarManager carManager = new CarManager(new EfCarDal(), new ColorManager(new EfColorDal()));
     var result = carManager.Add(new Car { BrandId = 1, ColorId = 1, ModelYear = 2025, DailyPrice = 1200000, Description = "TOGG A50T" });
 
     if (result.Success == true)
@@ -81,7 +82,7 @@ static void AddCarTest()
 }
 static void UpdateCarTest()
 {
-    CarManager carManager = new CarManager(new EfCarDal());
+    CarManager carManager = new CarManager(new EfCarDal(), new ColorManager(new EfColorDal()));
     var result = carManager.Update(new Car { CarId = 2005, BrandId = 3, ColorId = 2, ModelYear = 2025, DailyPrice = 900000, Description = "TOGG V10I" });
     if (result.Success == true)
     {
@@ -95,7 +96,7 @@ static void UpdateCarTest()
 }
 static void DeleteCarTest()
 {
-    CarManager carManager = new CarManager(new EfCarDal());
+    CarManager carManager = new CarManager(new EfCarDal(), new ColorManager(new EfColorDal()));
 
     var result = carManager.Delete(new Car { CarId = 2004 });
     if (result.Success == true)

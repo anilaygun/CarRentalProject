@@ -17,6 +17,10 @@ namespace Business.Constants
         public static string FailListedCar = "Araba Listeleme Başarısız Oldu!";
         public static string ListedCarByColorId = "Renk Kimlik Numarasına Göre Araba Listeleme Başarılı";
         public static string ListedCarByBrandId = "Model Kimlik Numarasına Göre Araba Listeleme Başarılı";
+        public static string CartNameAlreadyExistsError = "Araba Ekleme Başarısız, Aynı Açıklamaya Sahip Araba Mevcut!";
+        public static string CarCountOfBrandError = "Araba Ekleme Başarısız, Aynı Modele Sahip Araba Limitine Ulaşıldı!";
+        public static string CountOfColorError = "Araba Ekleme Başarısız, Aynı Renk Sahip Araba Limitine Ulaşıldı!";
+
 
         // for brand entities
         public static string AddedBrand = "Model Ekleme Başarılı";
@@ -29,6 +33,7 @@ namespace Business.Constants
         public static string DeletedColor = "Renk Silme Başarılı";
         public static string UpdatedColor = "Renk Güncelleme Başarılı";
         public static string ListedColor = "Renk Listeleme Başarılı";
+        
 
         // for Rental entities
         public static string ListedRental = "Kiralama Listeleme Başarılı";
@@ -49,5 +54,6 @@ namespace Business.Constants
         public static string AddedUser = "Kullanıcı Ekleme Başarılı";
         public static string DeletedUser = "Kullanıcı Silme Başarılı";
         public static string UpdatedUser = "Kullanıcık Güncelleme Başarılı";
+        
     }
 }
